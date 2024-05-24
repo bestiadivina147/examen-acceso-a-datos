@@ -5,11 +5,11 @@ public class RepoTest {
     @PersistenceContext
 	EntityManager em;
 
-	@Inject
-	Repositorio repo;
+	// @Inject
+	// Repositorio repo;
 
-	@Inject
-    ServiceItem servicio;
+	// @Inject
+    // ServiceItem servicio;
 
     /**
 	 * Tests sobre los mappings
@@ -76,6 +76,7 @@ public class RepoTest {
 	 * e inyectala en los casos test
 	 * (ha de ser un bean) 
 	 * 
+	 * Utiliza el código:
 	 * @Inject
 	 * Repositorio repo;
 	 */
@@ -295,6 +296,7 @@ public class RepoTest {
 	 * indica que es un bean
 	 * e inyectalo en los casos test
 	 * 
+	 * Utiliza el código:
 	 * @Inject
 	 * ServiceItem servicio;
 	 */
