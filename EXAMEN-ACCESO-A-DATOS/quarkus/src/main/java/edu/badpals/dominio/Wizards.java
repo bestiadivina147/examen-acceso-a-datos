@@ -21,6 +21,13 @@ public class Wizards {
     @Column(name = "item_type")
     public String type = "";
 
+    public Wizards(String nombre, int dexterity, String person, String type) {
+        this.nombre = nombre;
+        this.dexterity = dexterity;
+        this.person = person;
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Wizards [nombre=" + this.nombre + ", dexterity=" + this.dexterity + ", person=" + this.person + ", type=" + this.type + "]";
