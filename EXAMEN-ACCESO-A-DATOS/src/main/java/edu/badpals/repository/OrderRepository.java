@@ -5,12 +5,12 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import edu.badpals.dominio.Order;
 public class OrderRepository implements PanacheRepository<Order> {
-    public List<Order> findByUserName(String usuaria_nombre) {
-        List<Order> ordenes = this.listAll()
+    public List<Order> findByUserName(String wizard_nombre) {
+        List<Order> orders = this.listAll()
 										.stream()
-										.filter(o -> o.getUser().getNombre().equalsIgnoreCase(usuaria_nombre))
+										.filter(o -> o.getWizard().getNombre().equalsIgnoreCase(wizard_nombre))
 										.collect(Collectors.toList());
-		return ordenes.isEmpty()? List.of(): ordenes;
+		return orders.isEmpty()? List.of(): orders;
     }
 }
 

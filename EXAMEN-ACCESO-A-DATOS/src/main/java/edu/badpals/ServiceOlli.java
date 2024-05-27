@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import edu.badpals.dominio.MagicalItem;
 import edu.badpals.dominio.Wizards;
 import edu.badpals.dominio.Order;
+import edu.badpals.dominio.Person;
 import edu.badpals.repository.MagicalItemRepository;
 import edu.badpals.repository.OrderRepository;
 import edu.badpals.repository.WizardsRepository;
@@ -26,30 +27,26 @@ public class ServiceOlli {
 
     public ServiceOlli() {}
     
-    public Wizards cargaWizard(String nombre) {
-        Optional<Wizards> wizards = wizardsRepo.findByIdOptional(nombre);
-        return wizards.isPresent()? wizards.get(): new Wizards();
+    public Wizards cargaWizard(Person string) {
+        Optional<Wizards> wizards = wizardsRepo.findByIdOptional(string);
+        return wizards.isPresent()? wizards.get(): new Wizards(string, 0, string, string);
     }
 
     public MagicalItem cargaMagicalItem(String nombre) {
         Optional<MagicalItem> item = itemRepo.findByIdOptional(nombre);
-        return item.isPresent()? item.get(): new Item();
+        return item.isPresent()? item.get(): new MagicalItem(0, nombre, 0, nombre);
     }
 
     public List<Order> cargaOrder(String wizards_nombre) {
         return orderRepo.findByUserName(wizards_nombre);
     }
 
-    public Wizards creaWizards(Wizards wizards) {
-        wizardsRepo.persist(wizards);
-        return this.cargaWizards(wizards.getNombre());
-    }
 
     public void eliminaWizards(String wizards_nombre) {
         wizardsRepo.deleteById(wizards_nombre);
     }
 
-    public List<Order> ordenes() {
+    public List<Order> orders() {
         return orderRepo.listAll();
     }
 
@@ -60,7 +57,7 @@ public class ServiceOlli {
         Optional<Wizards> wizards = wizardsRepo.findByIdOptional(wizards_nombre);
         Optional<MagicalItem> item = itemRepo.findByIdOptional(item_nombre);
         if (wizards.isPresent() && item.isPresent() 
-            && wizards.get().getDestreza() >= item.get().getQuality()) {
+            && wizards.get().getDexterity() >= item.get().getQuality()) {
             order = new Order(wizards.get(), item.get());
             orderRepo.persist(order);
         }

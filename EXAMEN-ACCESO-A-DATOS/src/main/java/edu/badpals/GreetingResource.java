@@ -29,17 +29,6 @@ public class GreetingResource {
         return "Wellcome Ollivanders!";
     }
 
-    @GET
-    @Path("/wizards/{nombre}")
-    @Produces(MediaType.APPLICATION_JSON)
-    // curl -w "\n" http://localhost:8080/usuaria/Doobey -v
-    // curl -w "\n" http://localhost:8080/usuaria/Severus -v
-    public Response gWizards(@PathParam("nombre") String nombre) {
-        Wizards wizards = service.cargaWizards(nombre);
-        return wizards.getNombre().isEmpty()? 
-            Response.status(Response.Status.NOT_FOUND).build():
-            Response.status(Response.Status.OK).entity(wizards).build();
-    }
 
     @POST
     @Path("/ordena")
@@ -49,7 +38,7 @@ public class GreetingResource {
     // curl -d '{"user": {"nombre": "Hermione"}, "item": {"nombre": "AgedBrie"}}' 
     // -H "Content-Type: application/json" -X POST http://localhost:8080/ordena -v
     public Response post(@Valid Order order) {
-        Order pedido = service.comanda(order.getUser().getNombre(), order.getItem().getNombre());
+        Order pedido = service.comanda(order.getWizard().getNombre(), order.getItem().getNombre());
         return pedido != null?
             Response.status(Response.Status.CREATED).entity(pedido).build():
             Response.status(Response.Status.NOT_FOUND).build();
@@ -79,25 +68,12 @@ public class GreetingResource {
     @Produces(MediaType.APPLICATION_JSON)
     // curl -w "\n" http://localhost:8080/item/AgedBrie -v
     public Response gItem(@PathParam("nombre") String nombre) {
-        MagicalItem item = service.cargaItem(nombre);
+        MagicalItem item = service.cargaMagicalItem(nombre);
         return item.getNombre().isEmpty()? 
             Response.status(Response.Status.NOT_FOUND).build():
             Response.status(Response.Status.OK).entity(item).build();
     }
 
-    @POST
-    @Path("/alta")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    // curl -d '{"nombre":"Severus", "destreza":"200"}'
-    // -H "Content-Type: application/json" -X POST http://localhost:8080/alta -v
-    public Response add(@Valid Wizards wizards) {
-        Wizards wiz = service.creaWizards(wizards);
-        return wiz != null?
-            Response.status(Response.Status.CREATED).entity(wiz).build():
-            Response.status(Response.Status.NOT_FOUND).build();
-    }
 
     @DELETE
     @Path("/baja/{wizards}")

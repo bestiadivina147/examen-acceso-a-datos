@@ -4,10 +4,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import edu.badpals.dominio.Person;
 
 @Entity
 @Table(name = "t_wizards")
 public class Wizards {
+    private  Enum MUGGLE;
+
     @Id
     @Column(name = "wizard_name")
     public String nombre = "";
@@ -16,41 +19,27 @@ public class Wizards {
     public int dexterity;
 
     @Column(name = "wizard_person")
-    public Enum person = MUGGLE, SQUIB, NOMAJ, MUDBLOOD;
+    public Person person = Person.valueOf(nombre);
 
-    public Enum getSQUIB() {
-        return SQUIB;
-    }
-
-    public void setSQUIB(Enum sQUIB) {
-        SQUIB = sQUIB;
-    }
-
-    public Enum getNOMAJ() {
-        return NOMAJ;
-    }
-
-    public void setNOMAJ(Enum nOMAJ) {
-        NOMAJ = nOMAJ;
-    }
-
-    public Enum getMUDBLOOD() {
-        return MUDBLOOD;
-    }
-
-    public void setMUDBLOOD(Enum mUDBLOOD) {
-        MUDBLOOD = mUDBLOOD;
-    }
+    
 
     @Column(name = "item_type")
     public String type = "";
 
-    public Wizards(String nombre, int dexterity, String person, String type) {
+    public Wizards(String nombre, int dexterity, Person nombre2, String type) {
         this.nombre = nombre;
         this.dexterity = dexterity;
-        this.person = person;
+        this.person = nombre2;
         this.type = type;
     }
+
+    
+
+    public Wizards(Person nombre2, int dexterity2, Person nombre3, Person nombre4) {
+        //TODO Auto-generated constructor stub
+    }
+
+
 
     public String getNombre() {
         return nombre;
@@ -68,14 +57,6 @@ public class Wizards {
         this.dexterity = dexterity;
     }
 
-    
-    public Enum getPerson() {
-        return person;
-    }
-
-    public void setPerson(Enum person) {
-        this.person = person;
-    }
 
     public String getType() {
         return type;

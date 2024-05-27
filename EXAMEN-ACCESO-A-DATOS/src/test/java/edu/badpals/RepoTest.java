@@ -14,11 +14,15 @@ import jakarta.ws.rs.core.MediaType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import edu.badpals.dominio.MagicalItem;
+import edu.badpals.dominio.Order;
+import edu.badpals.dominio.Wizards;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 @QuarkusTest
@@ -55,7 +59,7 @@ public class RepoTest {
 		Assertions.assertThat(elixir.toString()).containsIgnoringCase("Elixir of the Mongoose"); // item_name
 		Assertions.assertThat(elixir.toString()).contains("7"); // item_quality
 		Assertions.assertThat(elixir.toString()).contains("MagicalItem"); // item_type
-		Assertions.assertThat(elixir.getId()).isEqualTo(2L);
+		Assertions.assertThat(elixir.getId_item()).isEqualTo(2L);
 	}
     
 	/** 
@@ -72,7 +76,7 @@ public class RepoTest {
 	 */
 	@Test
 	public void test_mapping_wizard() {
-		Wizard squib = em.find(Wizard.class, "Marius Black");
+		Wizards squib = em.find(Wizards.class, "Marius Black");
 		Assertions.assertThat(squib).isNotNull();
 		Assertions.assertThat(squib.toString()).contains("Marius Black");
 		Assertions.assertThat(squib.toString()).contains("15"); //wizard_dexterity
@@ -115,7 +119,7 @@ public class RepoTest {
 	@Test
 	public void test_load_wizard() {
 		Assertions.assertThat(repo).isNotNull();
-		Wizard squib = repo.loadWizard("Hermione").get();
+		Wizards squib = repo.loadWizard("Hermione").get();
 		Assertions.assertThat(squib).isNotNull();
 		Assertions.assertThat(squib.toString()).contains("Hermione");
 		Assertions.assertThat(squib.toString()).contains("100");
