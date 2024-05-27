@@ -68,11 +68,12 @@ public class Wizards {
         this.dexterity = dexterity;
     }
 
-    public String getPerson() {
+    
+    public Enum getPerson() {
         return person;
     }
 
-    public void setPerson(String person) {
+    public void setPerson(Enum person) {
         this.person = person;
     }
 
@@ -88,5 +89,6 @@ public class Wizards {
     public String toString() {
         return "Wizards [nombre=" + this.nombre + ", dexterity=" + this.dexterity + ", person=" + this.person + ", type=" + this.type + "]";
     }
+
     
 }
