@@ -1,4 +1,6 @@
 
+import java.util.List;
+import java.util.stream.Collectors;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import edu.badpals.dominio.Order;
