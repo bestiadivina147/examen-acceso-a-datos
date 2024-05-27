@@ -15,12 +15,98 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 import edu.badpals.dominio.*;
 
-@Path("/hello")
+@Path("/")
 public class GreetingResource {
 
+    @Inject
+    ServiceOlli service;
+
     @GET
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello from Quarkus REST";
+    @Path("/wellcome")
+    public String wellcome() {
+        return "Wellcome Ollivanders!";
+    }
+
+    @GET
+    @Path("/wizards/{nombre}")
+    @Produces(MediaType.APPLICATION_JSON)
+    // curl -w "\n" http://localhost:8080/usuaria/Doobey -v
+    // curl -w "\n" http://localhost:8080/usuaria/Severus -v
+    public Response gWizards(@PathParam("nombre") String nombre) {
+        Wizards wizards = service.cargaWizards(nombre);
+        return wizards.getNombre().isEmpty()? 
+            Response.status(Response.Status.NOT_FOUND).build():
+            Response.status(Response.Status.OK).entity(wizards).build();
+    }
+
+    @POST
+    @Path("/ordena")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    // curl -d '{"user": {"nombre": "Hermione"}, "item": {"nombre": "AgedBrie"}}' 
+    // -H "Content-Type: application/json" -X POST http://localhost:8080/ordena -v
+    public Response post(@Valid Order order) {
+        Order pedido = service.comanda(order.getUser().getNombre(), order.getItem().getNombre());
+        return pedido != null?
+            Response.status(Response.Status.CREATED).entity(pedido).build():
+            Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    @GET
+    @Path("/pedidos/{usuaria}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    // curl -w "\n" http://localhost:8080/pedidos/Hermione -v
+    public List<Order> list(@PathParam("wizards") String wizards) {
+        return service.cargaOrder(wizards);
+    }
+
+    @GET
+    @Path("/pedidos")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    // curl -w "\n" http://localhost:8080/pedidos -v
+    public List<Order> list() {
+        return service.orders();
+    }
+
+    @GET
+    @Path("/item/{nombre}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    // curl -w "\n" http://localhost:8080/item/AgedBrie -v
+    public Response gItem(@PathParam("nombre") String nombre) {
+        MagicalItem item = service.cargaItem(nombre);
+        return item.getNombre().isEmpty()? 
+            Response.status(Response.Status.NOT_FOUND).build():
+            Response.status(Response.Status.OK).entity(item).build();
+    }
+
+    @POST
+    @Path("/alta")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    // curl -d '{"nombre":"Severus", "destreza":"200"}'
+    // -H "Content-Type: application/json" -X POST http://localhost:8080/alta -v
+    public Response add(@Valid Wizards wizards) {
+        Wizards wiz = service.creaWizards(wizards);
+        return wiz != null?
+            Response.status(Response.Status.CREATED).entity(wiz).build():
+            Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    @DELETE
+    @Path("/baja/{wizards}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    // curl -H "Content-Type: application/json" -X DELETE http://localhost:8080/baja/Severus   
+    public List<Order> delete(@PathParam("wizards") String nombre) {
+        service.eliminaWizards(nombre);
+        return service.orders();
     }
 }
