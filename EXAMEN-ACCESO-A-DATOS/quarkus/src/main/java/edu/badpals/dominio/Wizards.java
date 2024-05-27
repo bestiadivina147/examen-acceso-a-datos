@@ -16,7 +16,31 @@ public class Wizards {
     public int dexterity;
 
     @Column(name = "wizard_person")
-    public String person = "";
+    public Enum person = MUGGLE, SQUIB, NOMAJ, MUDBLOOD;
+
+    public Enum getSQUIB() {
+        return SQUIB;
+    }
+
+    public void setSQUIB(Enum sQUIB) {
+        SQUIB = sQUIB;
+    }
+
+    public Enum getNOMAJ() {
+        return NOMAJ;
+    }
+
+    public void setNOMAJ(Enum nOMAJ) {
+        NOMAJ = nOMAJ;
+    }
+
+    public Enum getMUDBLOOD() {
+        return MUDBLOOD;
+    }
+
+    public void setMUDBLOOD(Enum mUDBLOOD) {
+        MUDBLOOD = mUDBLOOD;
+    }
 
     @Column(name = "item_type")
     public String type = "";
