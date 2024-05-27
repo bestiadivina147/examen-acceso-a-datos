@@ -23,4 +23,41 @@ public class MagicalItem {
     @Column(name = "item_type")
     public String type = "";
     
+    public int getId_item() {
+        return id_item;
+    }
+
+    public void setId_item(int id_item) {
+        this.id_item = id_item;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getQuality() {
+        return quality;
+    }
+
+    public void setQuality(int quality) {
+        this.quality = quality;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+   public String toString() {
+        return this.id_item + ", " + this.nombre + ", " + this.quality + ", " + this.type;
+    }
+
 }
