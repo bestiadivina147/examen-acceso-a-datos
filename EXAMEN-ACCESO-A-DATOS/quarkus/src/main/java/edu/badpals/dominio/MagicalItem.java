@@ -55,6 +55,13 @@ public class MagicalItem {
         this.type = type;
     }
 
+    public MagicalItem(int id_item, String nombre, int quality, String type) {
+        this.id_item = id_item;
+        this.nombre = nombre;
+        this.quality = quality;
+        this.type = type;
+    }
+
     @Override
    public String toString() {
         return this.id_item + ", " + this.nombre + ", " + this.quality + ", " + this.type;
