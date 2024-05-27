@@ -28,6 +28,38 @@ public class Wizards {
         this.type = type;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getDexterity() {
+        return dexterity;
+    }
+
+    public void setDexterity(int dexterity) {
+        this.dexterity = dexterity;
+    }
+
+    public String getPerson() {
+        return person;
+    }
+
+    public void setPerson(String person) {
+        this.person = person;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Wizards [nombre=" + this.nombre + ", dexterity=" + this.dexterity + ", person=" + this.person + ", type=" + this.type + "]";
