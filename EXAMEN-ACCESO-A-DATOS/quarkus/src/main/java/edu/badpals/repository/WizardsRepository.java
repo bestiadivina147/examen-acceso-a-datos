@@ -1,4 +1,4 @@
-
+package edu.badpals.repository;
 import jakarta.enterprise.context.ApplicationScoped;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import edu.badpals.dominio.Wizards;

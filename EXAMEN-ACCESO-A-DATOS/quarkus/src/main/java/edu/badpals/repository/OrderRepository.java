@@ -1,4 +1,4 @@
-
+package edu.badpals.repository;
 import java.util.List;
 import java.util.stream.Collectors;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
